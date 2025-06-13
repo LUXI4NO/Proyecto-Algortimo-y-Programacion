@@ -1,0 +1,5 @@
+C:\Users\luciano\Documents\SharpDevelop Projects\Empresa_Constructora\Empresa_Constructora\bin\Debug\Empresa_Constructora.exe
+C:\Users\luciano\Documents\SharpDevelop Projects\Empresa_Constructora\Empresa_Constructora\bin\Debug\Empresa_Constructora.pdb
+C:\Users\luciano\Documents\SharpDevelop Projects\Empresa_Constructora\Empresa_Constructora\obj\Debug\Empresa_Constructora.csprojResolveAssemblyReference.cache
+C:\Users\luciano\Documents\SharpDevelop Projects\Empresa_Constructora\Empresa_Constructora\obj\Debug\Empresa_Constructora.exe
+C:\Users\luciano\Documents\SharpDevelop Projects\Empresa_Constructora\Empresa_Constructora\obj\Debug\Empresa_Constructora.pdb
