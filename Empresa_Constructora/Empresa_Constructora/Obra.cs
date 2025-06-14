@@ -1,24 +1,27 @@
-﻿using System;
+using System;
 using System.Collections;
 
 namespace Empresa_Constructora
 {
     public class Obra
     {
-        // Propiedades básicas de la obra
         public string Nombre { get; set; }
         public string TipoObra { get; set; }
         public int CodigoObra { get; set; }
         public string EstadoObra { get; set; }
         public double CostoObra { get; set; }
-        public double PorcentajeAvance { get; private set; }  
+        public double PorcentajeAvance { get; private set; }
         public JefeObra JefeAsignado { get; set; }
-        public ArrayList GruposAsignados { get; set; } 
+        public ArrayList GruposAsignados { get; set; }
 
-        // Constructor inicializa valores por defecto
         public Obra(string nombre, string tipoObra, int codigoObra, string estadoObra, double costoObra)
         {
-            PorcentajeAvance = 0; 
+            Nombre = nombre;
+            TipoObra = tipoObra;
+            CodigoObra = codigoObra;
+            EstadoObra = estadoObra;
+            CostoObra = costoObra;
+            PorcentajeAvance = 0;
             JefeAsignado = null;
             GruposAsignados = new ArrayList();
         }
@@ -47,9 +50,14 @@ namespace Empresa_Constructora
 		    PorcentajeAvance = nuevoAvance;
 		
 		    if (PorcentajeAvance == 100)
-		        EstadoObra = "Finalizada";
+		    {
+		    	EstadoObra = "Finalizada";
+		    }	        
 		    else
-		        EstadoObra = "En ejecución";
+		    {
+		    	EstadoObra = "En ejecución";
+		    }
+		        
 		
 		    Console.WriteLine("\nNuevo avance registrado: " + PorcentajeAvance + "%");
 		    Console.WriteLine("\nEstado actual de la obra: " + EstadoObra);
