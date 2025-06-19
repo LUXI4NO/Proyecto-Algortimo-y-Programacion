@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 
 namespace Empresa_Constructora
@@ -10,8 +10,8 @@ namespace Empresa_Constructora
         public string Nombre { get; set; }
         public ArrayList TodasLasObrasEjecucion { get; set; }
         public ArrayList TodasLasObrasFinalizadas { get; set; }
-		public ArrayList TodosLosObreros { get; set; }
-		public ArrayList TodosLosGrupos { get; set; }
+	public ArrayList TodosLosObreros { get; set; }
+	public ArrayList TodosLosGrupos { get; set; }
 		
 		// Constructor inicializa las listas.
         public Empresa(string nombre)
@@ -294,44 +294,66 @@ namespace Empresa_Constructora
 		}
         
 		// Modifica el avance porcentual de una obra, y mueve a finalizadas si alcanza 100%.
-        public void ModificarAvanceObra(int codigoObra, double nuevoAvance)
-        {
-            Obra obra = null;
-
-            foreach (Obra o in TodasLasObrasEjecucion)
-            {
-                if (o.CodigoObra == codigoObra)
-                {
-                    obra = o;
-                    break;
-                }
-            }
-
-            if (obra == null)
-            {
-            	throw new ObraNoEncontradaException();
-            }
-               
-            double avanceAnterior = obra.PorcentajeAvance;
-            obra.ActualizarAvance(nuevoAvance);
-
-            if (obra.PorcentajeAvance == avanceAnterior)
-            {
-                Console.WriteLine("No se actualizó el avance porque el valor era inválido.");
-                return;
-            }
-
-            if (obra.PorcentajeAvance == 100)
-            {
-                TodasLasObrasEjecucion.Remove(obra);
-                TodasLasObrasFinalizadas.Add(obra);
-                Console.WriteLine("La obra '" + obra.Nombre + "' ha sido finalizada y movida a Obras Finalizadas.");
-            }
-            else
-            {
-                Console.WriteLine("\nEl avance de la obra '" + obra.Nombre + "' fue actualizado al " + nuevoAvance + "%.");
-            }
-        }
+		public void ModificarAvanceObra(int codigoObra, double nuevoAvance)
+		{
+		    Obra obra = null;
+		    bool estabaFinalizada = false;
+		
+		    // Buscar en obras en ejecución
+		    foreach (Obra o in TodasLasObrasEjecucion)
+		    {
+		        if (o.CodigoObra == codigoObra)
+		        {
+		            obra = o;
+		            break;
+		        }
+		    }
+		
+		    // Si no está en ejecución, buscar en finalizadas
+		    if (obra == null)
+		    {
+		        foreach (Obra o in TodasLasObrasFinalizadas)
+		        {
+		            if (o.CodigoObra == codigoObra)
+		            {
+		                obra = o;
+		                estabaFinalizada = true;
+		                break;
+		            }
+		        }
+		    }
+		
+		    if (obra == null)
+		    {
+		        throw new ObraNoEncontradaException();
+		    }
+		
+		    double avanceAnterior = obra.PorcentajeAvance;
+		    obra.ActualizarAvance(nuevoAvance);
+		
+		    if (obra.PorcentajeAvance == avanceAnterior)
+		    {
+		        Console.WriteLine("No se actualizó el avance porque el valor era inválido.");
+		        return;
+		    }
+		
+		    if (estabaFinalizada && obra.PorcentajeAvance < 100)
+		    {
+		        TodasLasObrasFinalizadas.Remove(obra);
+		        TodasLasObrasEjecucion.Add(obra);
+		        Console.WriteLine("La obra '" + obra.Nombre + "' volvió al estado de ejecución.");
+		    }
+		    else if (!estabaFinalizada && obra.PorcentajeAvance == 100)
+		    {
+		        TodasLasObrasEjecucion.Remove(obra);
+		        TodasLasObrasFinalizadas.Add(obra);
+		        Console.WriteLine("La obra '" + obra.Nombre + "' ha sido finalizada y movida a Obras Finalizadas.");
+		    }
+		    else
+		    {
+		        Console.WriteLine("\nEl avance de la obra '" + obra.Nombre + "' fue actualizado al " + nuevoAvance + "%.");
+		    }
+		}
         
         // Da de baja a un jefe de obra y lo desvincula de la obra si está asignado.
         public void DarDeBajaJefe(int legajoJefe)
