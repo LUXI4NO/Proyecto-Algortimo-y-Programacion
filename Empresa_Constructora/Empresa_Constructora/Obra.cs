@@ -24,6 +24,9 @@ namespace Empresa_Constructora
             PorcentajeAvance = 0;
             JefeAsignado = null;
             GruposAsignados = new ArrayList();
+            
+           	if (EstadoObra.ToUpper() == "FINALIZADA")
+               	PorcentajeAvance = 100;
         }
         
         // Asigna jefe a la obra
@@ -39,29 +42,13 @@ namespace Empresa_Constructora
 		}
 		
 		// Actualiza el avance y cambia estado según porcentaje
-		public void ActualizarAvance(double nuevoAvance)
-		{
-		    if (nuevoAvance < 0 || nuevoAvance > 100)
-		    {
-		        Console.WriteLine("El avance debe estar entre 0 y 100. No se actualizó el avance.");
-		        return;
-		    }
-		
-		    PorcentajeAvance = nuevoAvance;
-		
-		    if (PorcentajeAvance == 100)
-		    {
-		    	EstadoObra = "Finalizada";
-		    }	        
-		    else
-		    {
-		    	EstadoObra = "En ejecución";
-		    }
-		        
-		
-		    Console.WriteLine("\nNuevo avance registrado: " + PorcentajeAvance + "%");
-		    Console.WriteLine("\nEstado actual de la obra: " + EstadoObra);
-		}
+        public void ActualizarAvance(double nuevoAvance)
+        {
+            if (nuevoAvance < 0 || nuevoAvance > 100)
+                return;
+
+            PorcentajeAvance = nuevoAvance;
+        }
 	
 		// Desvincula jefe y limpia grupos asignados
 		public void DesvincularJefeObra()
