@@ -10,8 +10,8 @@ namespace Empresa_Constructora
         public string Nombre { get; set; }
         public ArrayList TodasLasObrasEjecucion { get; set; }
         public ArrayList TodasLasObrasFinalizadas { get; set; }
-	public ArrayList TodosLosObreros { get; set; }
-	public ArrayList TodosLosGrupos { get; set; }
+		public ArrayList TodosLosObreros { get; set; }
+		public ArrayList TodosLosGrupos { get; set; }
 		
 		// Constructor inicializa las listas.
         public Empresa(string nombre)
